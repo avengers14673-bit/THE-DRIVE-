@@ -1,347 +1,299 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>THE DRIVE</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <style>
+<title>THE DRIVE</title>
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+<style>
 
-        html {
-            scroll-behavior: smooth;
-        }
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
 
-        body {
-            background: #030405;
-            color: white;
-            font-family: Arial, Helvetica, sans-serif;
-        }
+html{
+    scroll-behavior:smooth;
+}
 
-        /* ================= NAVBAR ================= */
+body{
+    background:#020304;
+    color:white;
+    font-family:Arial,sans-serif;
+}
 
-        nav {
-            position: fixed;
-            top: 0;
-            left: 0;
+/* NAVBAR */
 
-            width: 100%;
-            height: 75px;
+nav{
+    position:fixed;
+    top:0;
+    width:100%;
+    height:70px;
 
-            padding: 0 6%;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
 
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
+    padding:0 20px;
 
-            background: rgba(0, 0, 0, 0.75);
+    background:rgba(0,0,0,.85);
+    backdrop-filter:blur(15px);
 
-            backdrop-filter: blur(15px);
+    border-bottom:1px solid #087cff;
 
-            border-bottom: 1px solid rgba(0, 120, 255, 0.2);
+    z-index:1000;
+}
 
-            z-index: 1000;
+.logo{
+    color:white;
+    text-decoration:none;
 
-            transition: 0.4s;
-        }
+    font-size:22px;
+    font-weight:bold;
+    letter-spacing:3px;
+}
 
-        /* Logo */
+.logo span{
+    color:#087cff;
+}
 
-        .logo {
-            color: white;
-            text-decoration: none;
+/* MENU BUTTON */
 
-            font-size: 25px;
-            font-weight: 900;
+.menu{
+    width:45px;
+    height:45px;
 
-            letter-spacing: 4px;
-        }
+    border:1px solid #087cff;
+    background:transparent;
 
-        .logo span {
-            color: #087cff;
-        }
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    gap:5px;
 
-        /* Menu */
+    padding:10px;
+}
 
-        .nav-links {
-            display: flex;
-            gap: 30px;
+.menu span{
+    display:block;
+    height:2px;
+    width:100%;
 
-            list-style: none;
-        }
+    background:white;
 
-        .nav-links a {
-            position: relative;
+    transition:.3s;
+}
 
-            color: #aaa;
-            text-decoration: none;
+/* FULL MENU */
 
-            font-size: 11px;
-            letter-spacing: 2px;
+.menu-screen{
 
-            padding: 10px 0;
+    position:fixed;
 
-            transition: 0.3s;
-        }
+    top:70px;
+    left:0;
 
-        /* Blue underline */
+    width:100%;
+    height:calc(100vh - 70px);
 
-        .nav-links a::after {
+    background:
+        radial-gradient(
+            circle at center,
+            rgba(0,110,255,.2),
+            #020304 55%
+        );
 
-            content: "";
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
 
-            position: absolute;
+    padding:40px;
 
-            left: 50%;
-            bottom: 0;
+    transform:translateX(100%);
 
-            width: 0;
-            height: 2px;
+    transition:.5s ease;
 
-            background: #087cff;
+    z-index:999;
+}
 
-            box-shadow: 0 0 12px #087cff;
+.menu-screen.open{
+    transform:translateX(0);
+}
 
-            transform: translateX(-50%);
+.menu-screen a{
 
-            transition: 0.3s;
-        }
+    color:#777;
 
-        .nav-links a:hover {
-            color: white;
-        }
+    text-decoration:none;
 
-        .nav-links a:hover::after {
-            width: 100%;
-        }
+    font-size:35px;
 
-        /* Button */
+    font-weight:bold;
 
-        .nav-button {
+    margin:12px 0;
 
-            color: white;
-            text-decoration: none;
+    transition:.3s;
+}
 
-            border: 1px solid #087cff;
+.menu-screen a:hover{
+    color:#087cff;
+    transform:translateX(10px);
+}
 
-            padding: 12px 18px;
+/* HERO */
 
-            font-size: 10px;
-            letter-spacing: 1px;
+.hero{
 
-            transition: 0.3s;
-        }
+    min-height:100vh;
 
-        .nav-button:hover {
+    padding:120px 25px 40px;
 
-            background: #087cff;
+    display:flex;
+    align-items:flex-start;
 
-            box-shadow:
-                0 0 20px rgba(8, 124, 255, 0.5);
-        }
+    position:relative;
 
-        /* ================= HERO ================= */
+    overflow:hidden;
 
-        .hero {
+    background:
 
-            min-height: 100vh;
+        radial-gradient(
+            circle at 70% 55%,
+            rgba(0,110,255,.3),
+            transparent 30%
+        ),
 
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        #020304;
+}
 
-            text-align: center;
+.hero-content{
+    position:relative;
+    z-index:5;
+}
 
-            padding: 100px 20px;
+.small{
+    color:#087cff;
 
-            background:
+    font-size:12px;
 
-                radial-gradient(
-                    circle at center,
-                    rgba(0, 100, 255, 0.2),
-                    transparent 35%
-                ),
+    letter-spacing:5px;
 
-                #030405;
-        }
+    margin-bottom:20px;
+}
 
-        .hero-content {
-            max-width: 900px;
-        }
+h1{
 
-        .hero-small {
+    font-size:55px;
 
-            color: #087cff;
+    line-height:.9;
 
-            font-size: 12px;
+    letter-spacing:-3px;
+}
 
-            letter-spacing: 6px;
+h1 span{
+    color:#087cff;
 
-            margin-bottom: 20px;
-        }
+    text-shadow:
+    0 0 25px rgba(0,120,255,.6);
+}
 
-        .hero h1 {
+.hero p{
 
-            font-size: clamp(45px, 8vw, 95px);
+    color:#888;
 
-            line-height: 0.95;
+    line-height:1.7;
 
-            font-weight: 900;
+    margin:25px 0;
 
-            letter-spacing: -4px;
-        }
+    max-width:330px;
+}
 
-        .hero h1 span {
-            color: #087cff;
+.button{
 
-            text-shadow:
-                0 0 30px rgba(8, 124, 255, 0.5);
-        }
+    display:inline-block;
 
-        .hero p {
+    padding:15px 22px;
 
-            color: #888;
+    background:#087cff;
 
-            max-width: 550px;
+    color:white;
 
-            margin: 30px auto;
+    text-decoration:none;
 
-            line-height: 1.8;
+    font-size:11px;
 
-            font-size: 14px;
-        }
+    letter-spacing:2px;
 
-        .hero-button {
+    box-shadow:
+    0 0 25px rgba(0,120,255,.35);
+}
 
-            display: inline-block;
+/* CAR PLACEHOLDER */
 
-            padding: 16px 28px;
+.car{
 
-            background: #087cff;
+    position:absolute;
 
-            color: white;
+    width:100%;
 
-            text-decoration: none;
+    right:-15%;
 
-            font-size: 11px;
+    bottom:70px;
 
-            letter-spacing: 2px;
+    opacity:.9;
 
-            transition: 0.3s;
-        }
+    filter:
+    drop-shadow(0 20px 30px black)
+    drop-shadow(0 0 30px rgba(0,120,255,.35));
 
-        .hero-button:hover {
+    animation:float 4s infinite ease-in-out;
+}
 
-            transform: translateY(-3px);
+@keyframes float{
 
-            box-shadow:
-                0 0 30px rgba(8, 124, 255, 0.5);
-        }
+    0%,100%{
+        transform:translateY(0);
+    }
 
+    50%{
+        transform:translateY(-10px);
+    }
 
-        /* ================= MOBILE ================= */
+}
 
-        .menu-toggle {
-            display: none;
+/* OTHER SECTIONS */
 
-            width: 45px;
-            height: 45px;
+.section{
 
-            background: transparent;
+    min-height:500px;
 
-            border: 1px solid #087cff;
+    padding:100px 25px;
 
-            cursor: pointer;
-        }
+    border-top:1px solid #111;
 
-        .menu-toggle span {
+}
 
-            display: block;
+.section h2{
 
-            width: 20px;
-            height: 2px;
+    font-size:40px;
 
-            background: white;
+    margin-bottom:20px;
+}
 
-            margin: 5px auto;
+.section p{
 
-            transition: 0.3s;
-        }
+    color:#888;
 
+    line-height:1.8;
+}
 
-        @media (max-width: 850px) {
+.blue{
+    color:#087cff;
+}
 
-            .nav-links {
-
-                position: fixed;
-
-                top: 75px;
-                right: 0;
-
-                width: 100%;
-                height: calc(100vh - 75px);
-
-                background: rgba(2, 4, 7, 0.98);
-
-                backdrop-filter: blur(20px);
-
-                display: flex;
-
-                flex-direction: column;
-
-                justify-content: center;
-
-                align-items: center;
-
-                gap: 30px;
-
-                transform: translateX(100%);
-
-                transition: 0.5s ease;
-            }
-
-            .nav-links.open {
-                transform: translateX(0);
-            }
-
-            .nav-links a {
-
-                font-size: 24px;
-
-                font-weight: bold;
-
-                opacity: 0;
-
-                transform: translateX(40px);
-
-                transition: 0.4s;
-            }
-
-            .nav-links.open a {
-
-                opacity: 1;
-
-                transform: translateX(0);
-            }
-
-            .menu-toggle {
-                display: block;
-            }
-
-            .nav-button {
-                display: none;
-            }
-
-        }
-
-    </style>
+</style>
 
 </head>
 
@@ -349,158 +301,203 @@
 <body>
 
 
-    <!-- ================= NAVBAR ================= -->
+<!-- NAVBAR -->
 
-    <nav>
+<nav>
 
-        <a href="#home" class="logo">
-            THE<span>DRIVE</span>
-        </a>
+    <a href="#home" class="logo">
+        THE<span>DRIVE</span>
+    </a>
+
+    <button class="menu" id="menu">
+
+        <span></span>
+        <span></span>
+        <span></span>
+
+    </button>
+
+</nav>
 
 
-        <div class="nav-links" id="navLinks">
+<!-- MENU -->
 
-            <a href="#home">HOME</a>
+<div class="menu-screen" id="menuScreen">
 
-            <a href="#models">MODELS</a>
+    <a href="#home">HOME</a>
 
-            <a href="#performance">PERFORMANCE</a>
+    <a href="#models">MODELS</a>
 
-            <a href="#technology">TECHNOLOGY</a>
+    <a href="#performance">PERFORMANCE</a>
 
-            <a href="#experience">EXPERIENCE</a>
+    <a href="#technology">TECHNOLOGY</a>
 
-            <a href="#contact">CONTACT</a>
+    <a href="#experience">EXPERIENCE</a>
 
+    <a href="#contact">CONTACT</a>
+
+</div>
+
+
+<!-- HERO -->
+
+<section class="hero" id="home">
+
+    <div class="hero-content">
+
+        <div class="small">
+            M PERFORMANCE
         </div>
 
+        <h1>
 
-        <a href="#experience" class="nav-button">
-            BOOK EXPERIENCE
+            NOT JUST<br>
+            A CAR.<br>
+
+            A <span>STATEMENT.</span>
+
+        </h1>
+
+        <p>
+
+            Power. Prestige. Perfection.
+            A driving experience engineered
+            around precision and emotion.
+
+        </p>
+
+        <a href="#models" class="button">
+
+            EXPERIENCE THE DRIVE →
+
         </a>
 
-
-        <button class="menu-toggle" id="menuToggle">
-
-            <span></span>
-            <span></span>
-            <span></span>
-
-        </button>
-
-    </nav>
+    </div>
 
 
+    <!-- IMPORTANT:
+         Agar car.png hai to yahan
+         car.png use hoga.
+    -->
 
-    <!-- ================= HERO ================= -->
+    <img
+        src="car.png"
+        class="car"
+        alt="Performance Car"
+    >
 
-    <section class="hero" id="home">
-
-        <div class="hero-content">
-
-            <div class="hero-small">
-                M PERFORMANCE
-            </div>
-
-
-            <h1>
-
-                NOT JUST A CAR.
-                <br>
-
-                A <span>STATEMENT.</span>
-
-            </h1>
+</section>
 
 
-            <p>
+<!-- MODELS -->
 
-                Power. Prestige. Perfection.
-                A driving experience engineered around
-                precision, performance and emotion.
+<section class="section" id="models">
 
-            </p>
+    <h2>
+        THE <span class="blue">MACHINE.</span>
+    </h2>
 
+    <p>
+        Explore performance, design and precision.
+    </p>
 
-            <a href="#models" class="hero-button">
-
-                EXPERIENCE THE DRIVE →
-
-            </a>
-
-        </div>
-
-    </section>
+</section>
 
 
+<!-- PERFORMANCE -->
 
-    <!-- ================= TEMPORARY SECTIONS ================= -->
+<section class="section" id="performance">
 
-    <section id="models" style="height:500px;"></section>
+    <h2>
+        POWER.
+    </h2>
 
-    <section id="performance" style="height:500px;"></section>
+    <p>
+        Built for those who dare.
+    </p>
 
-    <section id="technology" style="height:500px;"></section>
-
-    <section id="experience" style="height:500px;"></section>
-
-    <section id="contact" style="height:500px;"></section>
-
-
-
-    <!-- ================= JAVASCRIPT ================= -->
-
-    <script>
-
-        const menuToggle =
-            document.getElementById("menuToggle");
-
-        const navLinks =
-            document.getElementById("navLinks");
+</section>
 
 
-        /* Open / Close */
+<!-- TECHNOLOGY -->
 
-        menuToggle.addEventListener("click", function () {
+<section class="section" id="technology">
 
-            navLinks.classList.toggle("open");
+    <h2>
+        TECHNOLOGY.
+    </h2>
 
-            menuToggle.classList.toggle("open");
+    <p>
+        Engineering meets emotion.
+    </p>
 
-        });
-
-
-        /* Close after clicking */
-
-        document.querySelectorAll(".nav-links a")
-            .forEach(function (link) {
-
-                link.addEventListener("click", function () {
-
-                    navLinks.classList.remove("open");
-
-                    menuToggle.classList.remove("open");
-
-                });
-
-            });
+</section>
 
 
-        /* ESC closes menu */
+<!-- EXPERIENCE -->
 
-        document.addEventListener("keydown", function (event) {
+<section class="section" id="experience">
 
-            if (event.key === "Escape") {
+    <h2>
+        EXPERIENCE.
+    </h2>
 
-                navLinks.classList.remove("open");
+    <p>
+        Your drive starts here.
+    </p>
 
-                menuToggle.classList.remove("open");
+</section>
 
-            }
 
-        });
+<!-- CONTACT -->
 
-    </script>
+<section class="section" id="contact">
+
+    <h2>
+        CONTACT.
+    </h2>
+
+    <p>
+        Unlock the drive. Live the dream.
+    </p>
+
+</section>
+
+
+<script>
+
+/* MENU OPEN/CLOSE */
+
+const menu =
+document.getElementById("menu");
+
+const menuScreen =
+document.getElementById("menuScreen");
+
+
+menu.addEventListener("click",function(){
+
+    menuScreen.classList.toggle("open");
+
+});
+
+
+/* MENU LINK CLICK */
+
+const links =
+document.querySelectorAll(".menu-screen a");
+
+links.forEach(function(link){
+
+    link.addEventListener("click",function(){
+
+        menuScreen.classList.remove("open");
+
+    });
+
+});
+
+</script>
 
 
 </body>
