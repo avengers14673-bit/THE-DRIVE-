@@ -73,15 +73,21 @@ body{
     display:flex;
     justify-content:center;
     align-items:center;
+    z-index:3;
 }
 
 .car{
     width:92%;
     max-width:450px;
+    height:auto;
+    object-fit:contain;
+    display:block;
     user-select:none;
     pointer-events:none;
+
     filter:
         drop-shadow(0 15px 25px rgba(0,0,0,.9));
+
     transition:transform .08s linear;
 }
 
@@ -90,13 +96,16 @@ body{
     position:absolute;
     width:100%;
     height:2px;
+
     background:linear-gradient(
         90deg,
         transparent,
         rgba(255,255,255,.4),
         transparent
     );
+
     opacity:0;
+    z-index:1;
 }
 
 .line1{top:40px;}
@@ -113,6 +122,7 @@ body{
     from{
         transform:translateX(100%);
     }
+
     to{
         transform:translateX(-100%);
     }
@@ -124,9 +134,12 @@ body{
     bottom:120px;
     left:0;
     width:100%;
+
     display:flex;
     justify-content:center;
     align-items:center;
+
+    z-index:5;
 }
 
 /* RPM ROUND */
@@ -135,6 +148,7 @@ body{
     height:170px;
     border-radius:50%;
     position:relative;
+
     display:flex;
     justify-content:center;
     align-items:center;
@@ -155,12 +169,15 @@ body{
 .rpm::before{
     content:"";
     position:absolute;
+
     width:140px;
     height:140px;
+
     border-radius:50%;
     background:#070707;
 }
 
+/* RPM CONTENT */
 .rpm-content{
     position:relative;
     z-index:2;
@@ -184,7 +201,9 @@ body{
 .red-zone{
     position:absolute;
     inset:0;
+
     border-radius:50%;
+
     background:conic-gradient(
         transparent 0deg,
         transparent 285deg,
@@ -192,6 +211,7 @@ body{
         rgba(255,255,255,.8) 325deg,
         transparent 325deg
     );
+
     opacity:.35;
 }
 
@@ -201,22 +221,30 @@ body{
     bottom:30px;
     left:0;
     width:100%;
+
     display:flex;
     justify-content:center;
+
+    z-index:10;
 }
 
 .accelerator{
     width:260px;
     height:65px;
+
     border:1px solid #444;
     border-radius:35px;
+
     background:#111;
     color:white;
+
     font-size:15px;
     font-weight:bold;
     letter-spacing:5px;
+
     cursor:pointer;
     outline:none;
+
     user-select:none;
     -webkit-user-select:none;
     -webkit-tap-highlight-color:transparent;
@@ -231,21 +259,27 @@ body{
 .accelerator:active,
 .accelerator.active{
     transform:scale(.96);
+
     background:#1c1c1c;
+
     box-shadow:
         0 0 25px rgba(255,255,255,.15),
         inset 0 0 20px rgba(255,255,255,.05);
 }
 
-/* SMALL LABEL */
+/* STATUS */
 .status{
     position:absolute;
     bottom:105px;
     width:100%;
+
     text-align:center;
+
     color:#555;
     font-size:8px;
     letter-spacing:4px;
+
+    z-index:6;
 }
 
 /* DRIVING EFFECT */
@@ -257,6 +291,7 @@ body{
     from{
         transform:translateX(-2px) scale(1.01);
     }
+
     to{
         transform:translateX(2px) scale(1.015);
     }
@@ -317,7 +352,10 @@ body{
 <div class="drive" id="drive">
 
     <div class="logo">THE DRIVE</div>
-    <div class="subtitle">PURE PERFORMANCE</div>
+
+    <div class="subtitle">
+        PURE PERFORMANCE
+    </div>
 
     <!-- SPEED EFFECT -->
     <div class="speed-line line1"></div>
@@ -327,67 +365,113 @@ body{
 
     <!-- CAR -->
     <div class="car-area">
+
+        <!-- IMPORTANT:
+             Put car.jpg in the SAME folder as this HTML file -->
         <img
-            src="car.jpg"
+            src="./car.jpg"
             class="car"
             id="car"
-            alt="BMW">
+            alt="BMW"
+            draggable="false"
+        >
+
     </div>
 
     <!-- RPM -->
     <div class="dashboard">
+
         <div class="rpm" id="rpmCircle">
+
             <div class="red-zone"></div>
 
             <div class="rpm-content">
-                <div class="rpm-number" id="rpmNumber">1000</div>
-                <div class="rpm-text">RPM</div>
+
+                <div
+                    class="rpm-number"
+                    id="rpmNumber">
+                    1000
+                </div>
+
+                <div class="rpm-text">
+                    RPM
+                </div>
+
             </div>
+
         </div>
+
     </div>
 
-    <div class="status" id="status">
+    <div
+        class="status"
+        id="status">
         READY TO DRIVE
     </div>
 
     <!-- ACCELERATOR -->
     <div class="controls">
+
         <button
             class="accelerator"
             id="accelerator">
             ACCELERATE
         </button>
+
     </div>
 
 </div>
 
 <!-- ENGINE SOUND -->
-<audio id="engineSound" src="engine.mp3" preload="auto"></audio>
+<audio
+    id="engineSound"
+    src="./engine.mp3"
+    preload="auto">
+</audio>
+
 
 <script>
 
-const drive = document.getElementById("drive");
-const accelerator = document.getElementById("accelerator");
-const rpmNumber = document.getElementById("rpmNumber");
-const rpmCircle = document.getElementById("rpmCircle");
-const statusText = document.getElementById("status");
-const engineSound = document.getElementById("engineSound");
+const drive =
+    document.getElementById("drive");
+
+const accelerator =
+    document.getElementById("accelerator");
+
+const rpmNumber =
+    document.getElementById("rpmNumber");
+
+const rpmCircle =
+    document.getElementById("rpmCircle");
+
+const statusText =
+    document.getElementById("status");
+
+const engineSound =
+    document.getElementById("engineSound");
 
 let rpm = 1000;
 let accelerating = false;
 let animationFrame;
+let fallTimer;
 
 /* MAX RPM */
 const MIN_RPM = 1000;
 const MAX_RPM = 8000;
 
-/* CONVERT RPM TO CIRCLE */
+
+/* =========================
+   RPM DISPLAY
+========================= */
+
 function updateRPM(){
 
     const percentage =
-        (rpm - MIN_RPM) / (MAX_RPM - MIN_RPM);
+        (rpm - MIN_RPM) /
+        (MAX_RPM - MIN_RPM);
 
-    const degrees = percentage * 360;
+    const degrees =
+        percentage * 360;
 
     rpmCircle.style.setProperty(
         "--rpm",
@@ -398,13 +482,21 @@ function updateRPM(){
         Math.round(rpm);
 
     if(rpm >= 6500){
+
         drive.classList.add("high-rpm");
+
     }else{
+
         drive.classList.remove("high-rpm");
+
     }
 }
 
-/* ACCELERATION LOOP */
+
+/* =========================
+   ACCELERATION
+========================= */
+
 function accelerate(){
 
     if(!accelerating) return;
@@ -412,7 +504,9 @@ function accelerate(){
     rpm += 120;
 
     if(rpm > MAX_RPM){
+
         rpm = MAX_RPM;
+
     }
 
     updateRPM();
@@ -421,51 +515,104 @@ function accelerate(){
         requestAnimationFrame(accelerate);
 }
 
-/* START */
+
+/* =========================
+   START
+========================= */
+
 function startAcceleration(e){
 
-    if(e) e.preventDefault();
+    if(e){
+        e.preventDefault();
+    }
 
-    if(accelerating) return;
+    if(accelerating){
+        return;
+    }
+
+    clearInterval(fallTimer);
 
     accelerating = true;
 
     accelerator.classList.add("active");
+
     drive.classList.add("driving");
 
-    statusText.textContent = "ACCELERATING";
+    statusText.textContent =
+        "ACCELERATING";
+
 
     /* SOUND */
+
     try{
-        engineSound.currentTime = 0;
+
         engineSound.loop = true;
+
         engineSound.volume = 0.9;
-        engineSound.play();
+
+        engineSound.currentTime = 0;
+
+        const playPromise =
+            engineSound.play();
+
+        if(playPromise !== undefined){
+
+            playPromise.catch(function(){
+
+                /* Browser blocked autoplay.
+                   User interaction will normally
+                   allow playback. */
+
+            });
+
+        }
+
     }catch(err){}
+
 
     accelerate();
 }
 
-/* STOP */
+
+/* =========================
+   STOP
+========================= */
+
 function stopAcceleration(e){
 
-    if(e) e.preventDefault();
+    if(e){
+        e.preventDefault();
+    }
 
     accelerating = false;
 
-    cancelAnimationFrame(animationFrame);
+    cancelAnimationFrame(
+        animationFrame
+    );
 
-    accelerator.classList.remove("active");
-    drive.classList.remove("driving");
+    accelerator.classList.remove(
+        "active"
+    );
 
-    statusText.textContent = "READY TO DRIVE";
+    drive.classList.remove(
+        "driving"
+    );
+
+    statusText.textContent =
+        "READY TO DRIVE";
+
 
     /* RPM FALL */
-    const fall = setInterval(()=>{
+
+    clearInterval(fallTimer);
+
+    fallTimer = setInterval(function(){
 
         if(accelerating){
-            clearInterval(fall);
+
+            clearInterval(fallTimer);
             return;
+
         }
 
         rpm -= 180;
@@ -474,20 +621,32 @@ function stopAcceleration(e){
 
             rpm = MIN_RPM;
 
-            clearInterval(fall);
+            clearInterval(fallTimer);
+
         }
 
         updateRPM();
 
     },30);
 
+
     /* STOP SOUND */
+
     try{
+
         engineSound.pause();
+
+        engineSound.currentTime = 0;
+
     }catch(err){}
+
 }
 
-/* MOUSE */
+
+/* =========================
+   MOUSE
+========================= */
+
 accelerator.addEventListener(
     "mousedown",
     startAcceleration
@@ -503,7 +662,11 @@ accelerator.addEventListener(
     stopAcceleration
 );
 
-/* MOBILE TOUCH */
+
+/* =========================
+   MOBILE TOUCH
+========================= */
+
 accelerator.addEventListener(
     "touchstart",
     startAcceleration,
@@ -522,7 +685,78 @@ accelerator.addEventListener(
     {passive:false}
 );
 
-/* INITIAL */
+
+/* =========================
+   KEYBOARD SUPPORT
+========================= */
+
+document.addEventListener(
+    "keydown",
+    function(e){
+
+        if(
+            e.code === "Space" &&
+            !e.repeat
+        ){
+
+            startAcceleration(e);
+
+        }
+
+    }
+);
+
+document.addEventListener(
+    "keyup",
+    function(e){
+
+        if(e.code === "Space"){
+
+            stopAcceleration(e);
+
+        }
+
+    }
+);
+
+
+/* =========================
+   IMAGE ERROR CHECK
+========================= */
+
+const carImage =
+    document.getElementById("car");
+
+carImage.addEventListener(
+    "error",
+    function(){
+
+        statusText.textContent =
+            "CAR IMAGE NOT FOUND";
+
+        console.error(
+            "car.jpg not found. Put car.jpg in the same folder as this HTML file."
+        );
+
+    }
+);
+
+carImage.addEventListener(
+    "load",
+    function(){
+
+        console.log(
+            "BMW car image loaded successfully."
+        );
+
+    }
+);
+
+
+/* =========================
+   INITIAL
+========================= */
+
 updateRPM();
 
 </script>
