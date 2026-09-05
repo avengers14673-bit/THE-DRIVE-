@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>THE DRIVE — BMW</title>
+<title>THE DRIVE</title>
 
 <style>
 *{
@@ -13,443 +13,300 @@
     box-sizing:border-box;
 }
 
-html{
-    scroll-behavior:smooth;
+html,body{
+    width:100%;
+    height:100%;
+    overflow:hidden;
+    font-family:Arial,Helvetica,sans-serif;
+    background:#050505;
+    color:white;
 }
 
 body{
-    font-family:Arial, Helvetica, sans-serif;
-    background:#050505;
-    color:white;
-    overflow:hidden;
+    display:flex;
+    justify-content:center;
+    align-items:center;
 }
 
-/* ================= NAVBAR ================= */
+/* MAIN */
+.drive{
+    width:100%;
+    max-width:500px;
+    height:100vh;
+    position:relative;
+    overflow:hidden;
+    background:
+        radial-gradient(circle at center, #1b1b1b 0%, #080808 45%, #000 100%);
+}
 
-.navbar{
-    position:fixed;
-    top:0;
+/* TOP TITLE */
+.logo{
+    position:absolute;
+    top:35px;
     left:0;
     width:100%;
-    height:75px;
-
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-
-    padding:0 7%;
-
-    z-index:1000;
-
-    background:rgba(0,0,0,.65);
-    backdrop-filter:blur(12px);
-
-    border-bottom:1px solid rgba(255,255,255,.08);
-}
-
-.logo{
-    font-size:25px;
-    font-weight:900;
-    letter-spacing:4px;
-}
-
-/* ================= MENU BUTTON ================= */
-
-.menu-btn{
-    width:45px;
-    height:45px;
-
-    border:1px solid rgba(255,255,255,.3);
-    border-radius:50%;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    cursor:pointer;
-
-    transition:.3s;
-}
-
-.menu-btn:hover{
-    transform:rotate(90deg);
-    background:white;
-    color:black;
-}
-
-.menu-btn span{
-    font-size:22px;
-}
-
-/* ================= MENU ================= */
-
-.menu{
-    position:fixed;
-    top:0;
-    right:-100%;
-
-    width:100%;
-    max-width:450px;
-    height:100vh;
-
-    background:#090909;
-
-    z-index:999;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    transition:.5s ease;
-}
-
-.menu.active{
-    right:0;
-}
-
-.menu ul{
-    list-style:none;
     text-align:center;
-}
-
-.menu li{
-    margin:25px 0;
-}
-
-.menu a{
-    color:white;
-    text-decoration:none;
-
-    font-size:34px;
-    font-weight:800;
-    letter-spacing:4px;
-
-    transition:.3s;
-}
-
-.menu a:hover{
-    letter-spacing:9px;
-}
-
-/* ================= HERO ================= */
-
-.hero{
-    min-height:100vh;
-
-    padding:110px 5% 30px;
-
-    display:flex;
-    flex-direction:column;
-
-    justify-content:center;
-    align-items:center;
-
-    text-align:center;
-
-    position:relative;
-}
-
-/* ================= TITLE ================= */
-
-.small-title{
-    font-size:12px;
-    letter-spacing:6px;
-    color:#888;
-
-    margin-bottom:18px;
-}
-
-.hero h1{
-    font-size:clamp(50px,9vw,110px);
-
-    line-height:.85;
-
+    font-size:30px;
     font-weight:900;
-
-    letter-spacing:-5px;
+    letter-spacing:8px;
+    z-index:10;
 }
 
-.hero h1 span{
-    display:block;
-}
-
-.hero-text{
-    margin:25px auto;
-
-    color:#888;
-
-    font-size:14px;
-    letter-spacing:2px;
-}
-
-/* ================= CAR ================= */
-
-.car-section{
+.subtitle{
+    position:absolute;
+    top:72px;
     width:100%;
-
-    display:flex;
-    justify-content:center;
-    align-items:center;
-
-    position:relative;
-
-    margin-top:5px;
-}
-
-.car-image{
-    display:block;
-
-    width:78%;
-    max-width:700px;
-
-    height:auto;
-
-    margin:0 auto;
-
-    object-fit:contain;
-
-    filter:drop-shadow(
-        0 25px 35px rgba(0,0,0,.9)
-    );
-
-    transition:.1s;
-}
-
-/* ================= ACCELERATION ================= */
-
-body.accelerating .car-image{
-
-    animation:carShake .07s infinite alternate;
-
-    filter:
-        drop-shadow(0 0 30px rgba(255,255,255,.25))
-        drop-shadow(0 25px 35px rgba(0,0,0,.9));
-}
-
-@keyframes carShake{
-
-    from{
-        transform:translateX(-2px) scale(1.015);
-    }
-
-    to{
-        transform:translateX(2px) scale(1.035);
-    }
-}
-
-/* ================= RPM ================= */
-
-.rpm-box{
-    width:270px;
-
-    margin-top:2px;
-}
-
-.rpm-top{
-    display:flex;
-    justify-content:space-between;
-
+    text-align:center;
     font-size:9px;
-
-    letter-spacing:3px;
-
-    color:#666;
-
-    margin-bottom:7px;
+    letter-spacing:5px;
+    color:#777;
+    z-index:10;
 }
 
-.rpm-bar{
+/* CAR */
+.car-area{
+    position:absolute;
+    top:115px;
+    left:0;
     width:100%;
-    height:6px;
-
-    background:#181818;
-
-    border-radius:20px;
-
-    overflow:hidden;
+    height:330px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
 }
 
-.rpm-fill{
-    width:8%;
-    height:100%;
+.car{
+    width:92%;
+    max-width:450px;
+    user-select:none;
+    pointer-events:none;
+    filter:
+        drop-shadow(0 15px 25px rgba(0,0,0,.9));
+    transition:transform .08s linear;
+}
 
-    background:white;
+/* SPEED LINES */
+.speed-line{
+    position:absolute;
+    width:100%;
+    height:2px;
+    background:linear-gradient(
+        90deg,
+        transparent,
+        rgba(255,255,255,.4),
+        transparent
+    );
+    opacity:0;
+}
 
-    border-radius:20px;
+.line1{top:40px;}
+.line2{top:100px;}
+.line3{top:180px;}
+.line4{top:250px;}
 
-    transition:width .1s linear;
+.driving .speed-line{
+    opacity:.7;
+    animation:speed 0.35s linear infinite;
+}
+
+@keyframes speed{
+    from{
+        transform:translateX(100%);
+    }
+    to{
+        transform:translateX(-100%);
+    }
+}
+
+/* DASHBOARD */
+.dashboard{
+    position:absolute;
+    bottom:120px;
+    left:0;
+    width:100%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+/* RPM ROUND */
+.rpm{
+    width:170px;
+    height:170px;
+    border-radius:50%;
+    position:relative;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    background:
+        conic-gradient(
+            #fff 0deg,
+            #fff var(--rpm),
+            #242424 var(--rpm),
+            #242424 360deg
+        );
+
+    box-shadow:
+        0 0 0 8px #101010,
+        0 0 30px rgba(255,255,255,.08);
+}
+
+.rpm::before{
+    content:"";
+    position:absolute;
+    width:140px;
+    height:140px;
+    border-radius:50%;
+    background:#070707;
+}
+
+.rpm-content{
+    position:relative;
+    z-index:2;
+    text-align:center;
 }
 
 .rpm-number{
-    margin-top:6px;
-
-    font-size:10px;
-
-    letter-spacing:3px;
-
-    color:#777;
+    font-size:38px;
+    font-weight:900;
+    letter-spacing:2px;
 }
 
-/* ================= ACCELERATOR ================= */
-
-.accelerator-area{
-
-    margin-top:12px;
-
-    display:flex;
-    flex-direction:column;
-
-    align-items:center;
-
-    gap:7px;
-}
-
-.accelerator-label{
-
+.rpm-text{
     font-size:9px;
+    letter-spacing:3px;
+    color:#777;
+    margin-top:3px;
+}
 
-    letter-spacing:4px;
+/* RED ZONE */
+.red-zone{
+    position:absolute;
+    inset:0;
+    border-radius:50%;
+    background:conic-gradient(
+        transparent 0deg,
+        transparent 285deg,
+        rgba(255,255,255,.8) 285deg,
+        rgba(255,255,255,.8) 325deg,
+        transparent 325deg
+    );
+    opacity:.35;
+}
 
-    color:#666;
+/* ACCELERATOR */
+.controls{
+    position:absolute;
+    bottom:30px;
+    left:0;
+    width:100%;
+    display:flex;
+    justify-content:center;
 }
 
 .accelerator{
-
-    width:135px;
-    height:55px;
-
+    width:260px;
+    height:65px;
     border:1px solid #444;
-
-    border-radius:13px;
-
-    background:
-        linear-gradient(
-            #1b1b1b,
-            #070707
-        );
-
+    border-radius:35px;
+    background:#111;
     color:white;
-
-    font-size:10px;
-
+    font-size:15px;
     font-weight:bold;
-
-    letter-spacing:3px;
-
+    letter-spacing:5px;
     cursor:pointer;
-
+    outline:none;
     user-select:none;
-
     -webkit-user-select:none;
-
-    touch-action:none;
-
-    transition:.1s;
+    -webkit-tap-highlight-color:transparent;
 
     box-shadow:
-        inset 0 2px 5px rgba(255,255,255,.08),
-        0 10px 25px rgba(0,0,0,.7);
+        0 8px 25px rgba(0,0,0,.8),
+        inset 0 1px 0 rgba(255,255,255,.08);
+
+    transition:.15s;
 }
 
-.accelerator:hover{
-    border-color:#888;
-}
-
-.accelerator.pressed{
-
-    transform:
-        translateY(6px)
-        scale(.96);
-
-    background:#252525;
-
+.accelerator:active,
+.accelerator.active{
+    transform:scale(.96);
+    background:#1c1c1c;
     box-shadow:
-        inset 0 5px 10px rgba(0,0,0,.8),
-        0 3px 8px rgba(0,0,0,.5);
+        0 0 25px rgba(255,255,255,.15),
+        inset 0 0 20px rgba(255,255,255,.05);
 }
 
-/* ================= SPEED GLOW ================= */
-
-.speed-glow{
-
+/* SMALL LABEL */
+.status{
     position:absolute;
-
-    width:500px;
-    height:300px;
-
-    border-radius:50%;
-
-    background:
-        radial-gradient(
-            ellipse,
-            rgba(255,255,255,.08),
-            transparent 70%
-        );
-
-    pointer-events:none;
-
-    opacity:0;
-
-    transition:.2s;
+    bottom:105px;
+    width:100%;
+    text-align:center;
+    color:#555;
+    font-size:8px;
+    letter-spacing:4px;
 }
 
-body.accelerating .speed-glow{
-    opacity:1;
-
-    animation:glowPulse .25s infinite alternate;
+/* DRIVING EFFECT */
+.driving .car{
+    animation:carShake .08s infinite alternate;
 }
 
-@keyframes glowPulse{
-
+@keyframes carShake{
     from{
-        transform:scale(.95);
+        transform:translateX(-2px) scale(1.01);
     }
-
     to{
-        transform:scale(1.1);
+        transform:translateX(2px) scale(1.015);
     }
 }
 
-/* ================= MOBILE ================= */
+/* HIGH RPM */
+.high-rpm .rpm{
+    box-shadow:
+        0 0 0 8px #101010,
+        0 0 45px rgba(255,255,255,.25);
+}
 
-@media(max-width:768px){
-
-    .navbar{
-        padding:0 5%;
-    }
+/* MOBILE */
+@media(max-width:400px){
 
     .logo{
-        font-size:20px;
+        font-size:25px;
+        letter-spacing:6px;
     }
 
-    .hero{
-        padding-top:100px;
+    .car-area{
+        top:110px;
+        height:280px;
     }
 
-    .hero h1{
-        letter-spacing:-3px;
+    .car{
+        width:95%;
     }
 
-    .hero-text{
-        margin:18px auto;
-        font-size:11px;
+    .rpm{
+        width:150px;
+        height:150px;
     }
 
-    .car-image{
-        width:94%;
+    .rpm::before{
+        width:124px;
+        height:124px;
     }
 
-    .rpm-box{
-        width:230px;
+    .rpm-number{
+        font-size:32px;
+    }
+
+    .dashboard{
+        bottom:125px;
     }
 
     .accelerator{
-        width:125px;
-        height:52px;
-    }
-
-    .menu a{
-        font-size:30px;
+        width:235px;
+        height:60px;
     }
 }
 </style>
@@ -457,387 +314,215 @@ body.accelerating .speed-glow{
 
 <body>
 
-<!-- ================= NAVBAR ================= -->
+<div class="drive" id="drive">
 
-<nav class="navbar">
+    <div class="logo">THE DRIVE</div>
+    <div class="subtitle">PURE PERFORMANCE</div>
 
-    <div class="logo">
-        THE DRIVE
+    <!-- SPEED EFFECT -->
+    <div class="speed-line line1"></div>
+    <div class="speed-line line2"></div>
+    <div class="speed-line line3"></div>
+    <div class="speed-line line4"></div>
+
+    <!-- CAR -->
+    <div class="car-area">
+        <img
+            src="car.jpg"
+            class="car"
+            id="car"
+            alt="BMW">
     </div>
 
-    <div
-        class="menu-btn"
-        onclick="toggleMenu()"
-    >
-        <span>☰</span>
+    <!-- RPM -->
+    <div class="dashboard">
+        <div class="rpm" id="rpmCircle">
+            <div class="red-zone"></div>
+
+            <div class="rpm-content">
+                <div class="rpm-number" id="rpmNumber">1000</div>
+                <div class="rpm-text">RPM</div>
+            </div>
+        </div>
     </div>
 
-</nav>
+    <div class="status" id="status">
+        READY TO DRIVE
+    </div>
 
-
-<!-- ================= MENU ================= -->
-
-<div
-    class="menu"
-    id="menu"
->
-
-    <ul>
-
-        <li>
-            <a href="#" onclick="toggleMenu()">
-                BMW
-            </a>
-        </li>
-
-        <li>
-            <a href="#" onclick="toggleMenu()">
-                DRIVE
-            </a>
-        </li>
-
-    </ul>
+    <!-- ACCELERATOR -->
+    <div class="controls">
+        <button
+            class="accelerator"
+            id="accelerator">
+            ACCELERATE
+        </button>
+    </div>
 
 </div>
 
-
-<!-- ================= MAIN ================= -->
-
-<section class="hero">
-
-    <div class="small-title">
-        THE ULTIMATE DRIVING EXPERIENCE
-    </div>
-
-
-    <h1>
-        THE
-        <span>DRIVE</span>
-    </h1>
-
-
-    <p class="hero-text">
-        FEEL THE POWER • EXPERIENCE THE DRIVE
-    </p>
-
-
-    <!-- GLOW -->
-
-    <div class="speed-glow"></div>
-
-
-    <!-- CENTER BMW -->
-
-    <div class="car-section">
-
-        <img
-            src="car.jpg"
-            alt="BMW"
-            class="car-image"
-            id="car"
-        >
-
-    </div>
-
-
-    <!-- RPM -->
-
-    <div class="rpm-box">
-
-        <div class="rpm-top">
-
-            <span>RPM</span>
-
-            <span>REDLINE</span>
-
-        </div>
-
-
-        <div class="rpm-bar">
-
-            <div
-                class="rpm-fill"
-                id="rpmFill"
-            ></div>
-
-        </div>
-
-
-        <div
-            class="rpm-number"
-            id="rpmNumber"
-        >
-            0800 RPM
-        </div>
-
-    </div>
-
-
-    <!-- ACCELERATOR -->
-
-    <div class="accelerator-area">
-
-        <div class="accelerator-label">
-            PRESS & HOLD
-        </div>
-
-
-        <button
-            class="accelerator"
-            id="accelerator"
-        >
-            ACCELERATE
-        </button>
-
-    </div>
-
-</section>
-
-
-<!-- ================= SOUND ================= -->
-
-<audio
-    id="engineSound"
-    src="engine.mp3"
-    preload="auto"
-    loop>
-</audio>
-
+<!-- ENGINE SOUND -->
+<audio id="engineSound" src="engine.mp3" preload="auto"></audio>
 
 <script>
 
-/* ================= MENU ================= */
+const drive = document.getElementById("drive");
+const accelerator = document.getElementById("accelerator");
+const rpmNumber = document.getElementById("rpmNumber");
+const rpmCircle = document.getElementById("rpmCircle");
+const statusText = document.getElementById("status");
+const engineSound = document.getElementById("engineSound");
 
-function toggleMenu(){
-
-    const menu =
-        document.getElementById("menu");
-
-    menu.classList.toggle("active");
-
-}
-
-
-/* ================= ACCELERATOR ================= */
-
-const accelerator =
-    document.getElementById("accelerator");
-
-const engineSound =
-    document.getElementById("engineSound");
-
-const rpmFill =
-    document.getElementById("rpmFill");
-
-const rpmNumber =
-    document.getElementById("rpmNumber");
-
-
+let rpm = 1000;
 let accelerating = false;
-
-let rpm = 800;
-
 let animationFrame;
 
+/* MAX RPM */
+const MIN_RPM = 1000;
+const MAX_RPM = 8000;
 
-/* ================= START ================= */
-
-function startAcceleration(){
-
-    if(accelerating){
-        return;
-    }
-
-    accelerating = true;
-
-
-    accelerator.classList.add("pressed");
-
-    document.body.classList.add("accelerating");
-
-
-    /*
-       Start sound after user interaction.
-    */
-
-    engineSound.currentTime = 0;
-
-    engineSound.volume = 1;
-
-    engineSound.play().catch(() => {
-
-        console.log(
-            "Tap the accelerator to start sound."
-        );
-
-    });
-
-
-    animateRPM();
-}
-
-
-/* ================= STOP ================= */
-
-function stopAcceleration(){
-
-    if(!accelerating){
-        return;
-    }
-
-    accelerating = false;
-
-
-    accelerator.classList.remove("pressed");
-
-    document.body.classList.remove("accelerating");
-
-
-    cancelAnimationFrame(
-        animationFrame
-    );
-
-
-    /*
-       RPM falls smoothly.
-    */
-
-    const cooldown =
-        setInterval(() => {
-
-            rpm -= 180;
-
-
-            if(rpm <= 800){
-
-                rpm = 800;
-
-                clearInterval(cooldown);
-
-                engineSound.pause();
-
-                engineSound.currentTime = 0;
-
-            }
-
-
-            updateRPM();
-
-        },50);
-
-}
-
-
-/* ================= RPM ================= */
-
-function animateRPM(){
-
-    if(!accelerating){
-        return;
-    }
-
-
-    rpm += 170;
-
-
-    if(rpm >= 7000){
-        rpm = 7000;
-    }
-
-
-    updateRPM();
-
-
-    /*
-       Engine pitch increases with RPM.
-    */
-
-    engineSound.playbackRate =
-        0.75 +
-        (rpm / 7000) * 0.7;
-
-
-    animationFrame =
-        requestAnimationFrame(
-            animateRPM
-        );
-
-}
-
-
-/* ================= UPDATE RPM ================= */
-
+/* CONVERT RPM TO CIRCLE */
 function updateRPM(){
 
     const percentage =
-        ((rpm - 800) / (7000 - 800))
-        * 100;
+        (rpm - MIN_RPM) / (MAX_RPM - MIN_RPM);
 
+    const degrees = percentage * 360;
 
-    rpmFill.style.width =
-        Math.max(8,percentage)
-        + "%";
-
+    rpmCircle.style.setProperty(
+        "--rpm",
+        degrees + "deg"
+    );
 
     rpmNumber.textContent =
-        Math.round(rpm)
-        .toString()
-        .padStart(4,"0")
-        + " RPM";
+        Math.round(rpm);
 
+    if(rpm >= 6500){
+        drive.classList.add("high-rpm");
+    }else{
+        drive.classList.remove("high-rpm");
+    }
 }
 
+/* ACCELERATION LOOP */
+function accelerate(){
 
-/* ================= MOUSE ================= */
+    if(!accelerating) return;
 
+    rpm += 120;
+
+    if(rpm > MAX_RPM){
+        rpm = MAX_RPM;
+    }
+
+    updateRPM();
+
+    animationFrame =
+        requestAnimationFrame(accelerate);
+}
+
+/* START */
+function startAcceleration(e){
+
+    if(e) e.preventDefault();
+
+    if(accelerating) return;
+
+    accelerating = true;
+
+    accelerator.classList.add("active");
+    drive.classList.add("driving");
+
+    statusText.textContent = "ACCELERATING";
+
+    /* SOUND */
+    try{
+        engineSound.currentTime = 0;
+        engineSound.loop = true;
+        engineSound.volume = 0.9;
+        engineSound.play();
+    }catch(err){}
+
+    accelerate();
+}
+
+/* STOP */
+function stopAcceleration(e){
+
+    if(e) e.preventDefault();
+
+    accelerating = false;
+
+    cancelAnimationFrame(animationFrame);
+
+    accelerator.classList.remove("active");
+    drive.classList.remove("driving");
+
+    statusText.textContent = "READY TO DRIVE";
+
+    /* RPM FALL */
+    const fall = setInterval(()=>{
+
+        if(accelerating){
+            clearInterval(fall);
+            return;
+        }
+
+        rpm -= 180;
+
+        if(rpm <= MIN_RPM){
+
+            rpm = MIN_RPM;
+
+            clearInterval(fall);
+        }
+
+        updateRPM();
+
+    },30);
+
+    /* STOP SOUND */
+    try{
+        engineSound.pause();
+    }catch(err){}
+}
+
+/* MOUSE */
 accelerator.addEventListener(
     "mousedown",
     startAcceleration
 );
-
 
 accelerator.addEventListener(
     "mouseup",
     stopAcceleration
 );
 
-
 accelerator.addEventListener(
     "mouseleave",
     stopAcceleration
 );
 
-
-/* ================= TOUCH ================= */
-
+/* MOBILE TOUCH */
 accelerator.addEventListener(
     "touchstart",
-    function(event){
-
-        event.preventDefault();
-
-        startAcceleration();
-
-    },
+    startAcceleration,
     {passive:false}
 );
-
 
 accelerator.addEventListener(
     "touchend",
-    function(event){
-
-        event.preventDefault();
-
-        stopAcceleration();
-
-    },
+    stopAcceleration,
     {passive:false}
 );
 
+accelerator.addEventListener(
+    "touchcancel",
+    stopAcceleration,
+    {passive:false}
+);
 
-/* ================= INITIAL ================= */
-
+/* INITIAL */
 updateRPM();
 
 </script>
