@@ -37,6 +37,7 @@ nav{
     position:fixed;
     top:0;
     left:0;
+
     width:100%;
     height:72px;
 
@@ -47,6 +48,7 @@ nav{
     justify-content:space-between;
 
     background:rgba(0,0,0,.82);
+
     backdrop-filter:blur(16px);
 
     border-bottom:1px solid rgba(0,120,255,.25);
@@ -59,10 +61,13 @@ nav{
 
 .logo{
     color:white;
+
     text-decoration:none;
 
     font-size:24px;
+
     font-weight:bold;
+
     letter-spacing:4px;
 }
 
@@ -74,7 +79,7 @@ nav{
 }
 
 
-/* MENU BUTTON */
+/* ================= MENU BUTTON ================= */
 
 .menu{
     width:48px;
@@ -92,6 +97,7 @@ nav{
     flex-direction:column;
 
     justify-content:center;
+
     gap:5px;
 
     box-shadow:
@@ -239,7 +245,7 @@ nav{
 }
 
 
-/* HERO CONTENT */
+/* ================= HERO CONTENT ================= */
 
 .hero-content{
 
@@ -284,7 +290,7 @@ nav{
 }
 
 
-/* MAIN TITLE */
+/* ================= MAIN TITLE ================= */
 
 h1{
 
@@ -303,6 +309,8 @@ h1 span{
 
     text-shadow:
     0 0 25px rgba(0,120,255,.65);
+
+    white-space:nowrap;
 }
 
 
@@ -322,7 +330,7 @@ h1 span{
 }
 
 
-/* BUTTON */
+/* ================= BUTTON ================= */
 
 .button{
 
@@ -358,17 +366,20 @@ h1 span{
 
 
 /* ================= CAR ================= */
-/* UPDATED POSITION */
+
+/* NEW POSITION */
 
 .car{
 
     position:absolute;
 
-    width:115%;
+    width:100%;
 
     max-width:850px;
 
-    right:-5%;
+    left:0;
+
+    right:auto;
 
     bottom:55px;
 
@@ -440,9 +451,11 @@ h1 span{
     position:absolute;
 
     left:0;
+
     bottom:0;
 
     width:100%;
+
     height:100px;
 
     background:
@@ -454,7 +467,6 @@ h1 span{
 
     box-shadow:
     0 -20px 60px rgba(0,80,255,.08);
-
 }
 
 
@@ -511,7 +523,7 @@ h1 span{
         min-height:900px;
 
         padding:
-        135px 25px 40px;
+        125px 25px 40px;
 
         align-items:flex-start;
     }
@@ -520,14 +532,28 @@ h1 span{
     .hero-content{
 
         width:100%;
+
+        max-width:100%;
     }
 
 
+    /* MOBILE TITLE */
+
     h1{
 
-        font-size:52px;
+        font-size:48px;
 
-        letter-spacing:-3px;
+        line-height:.95;
+
+        letter-spacing:-2px;
+    }
+
+
+    h1 span{
+
+        white-space:nowrap;
+
+        font-size:48px;
     }
 
 
@@ -536,18 +562,24 @@ h1 span{
         font-size:14px;
 
         max-width:360px;
+
+        line-height:1.8;
+
+        margin:25px 0;
     }
 
 
-    /* UPDATED MOBILE CAR POSITION */
+    /* ================= MOBILE CAR ================= */
 
     .car{
 
-        width:115%;
+        width:100%;
 
         max-width:none;
 
-        right:-7%;
+        left:0;
+
+        right:auto;
 
         bottom:90px;
     }
@@ -582,17 +614,50 @@ h1 span{
 @media(max-width:380px){
 
     h1{
-        font-size:46px;
+
+        font-size:42px;
+
+        letter-spacing:-2px;
     }
 
+
+    h1 span{
+
+        font-size:42px;
+    }
+
+
     .hero{
+
         min-height:850px;
     }
 
+
     .car{
-        width:115%;
-        right:-7%;
+
+        width:100%;
+
+        left:0;
+
         bottom:70px;
+    }
+
+}
+
+
+/* ================= VERY SMALL PHONES ================= */
+
+@media(max-width:350px){
+
+    h1{
+
+        font-size:38px;
+    }
+
+
+    h1 span{
+
+        font-size:38px;
     }
 
 }
@@ -708,7 +773,7 @@ h1 span{
     </div>
 
 
-    <!-- CAR IMAGE -->
+    <!-- ================= CAR IMAGE ================= -->
 
     <img
         src="car.png"
@@ -736,13 +801,20 @@ h1 span{
     id="models">
 
     <h2>
-        THE <span class="blue">MACHINE.</span>
+
+        THE
+        <span class="blue">
+            MACHINE.
+        </span>
+
     </h2>
 
     <p>
+
         Explore performance, design and
         precision engineered for the ultimate
         driving experience.
+
     </p>
 
 </section>
@@ -755,12 +827,18 @@ h1 span{
     id="performance">
 
     <h2>
-        <span class="blue">POWER.</span>
+
+        <span class="blue">
+            POWER.
+        </span>
+
     </h2>
 
     <p>
+
         Built for those who dare.
         Performance without compromise.
+
     </p>
 
 </section>
@@ -773,12 +851,16 @@ h1 span{
     id="technology">
 
     <h2>
+
         TECHNOLOGY.
+
     </h2>
 
     <p>
+
         Intelligent engineering meets
         cutting-edge technology.
+
     </p>
 
 </section>
@@ -791,12 +873,16 @@ h1 span{
     id="experience">
 
     <h2>
+
         EXPERIENCE.
+
     </h2>
 
     <p>
+
         Feel the road. Feel the power.
         Live the drive.
+
     </p>
 
 </section>
@@ -809,11 +895,15 @@ h1 span{
     id="contact">
 
     <h2>
+
         CONTACT.
+
     </h2>
 
     <p>
+
         Unlock the drive. Live the dream.
+
     </p>
 
 </section>
