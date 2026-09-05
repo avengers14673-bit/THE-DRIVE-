@@ -37,9 +37,9 @@ body{
     justify-content:space-between;
     padding:0 7%;
     z-index:1000;
-    background:rgba(0,0,0,0.65);
+    background:rgba(0,0,0,.65);
     backdrop-filter:blur(12px);
-    border-bottom:1px solid rgba(255,255,255,0.08);
+    border-bottom:1px solid rgba(255,255,255,.08);
 }
 
 .logo{
@@ -51,23 +51,19 @@ body{
 .menu-btn{
     width:45px;
     height:45px;
-    border:1px solid rgba(255,255,255,0.3);
+    border:1px solid rgba(255,255,255,.3);
     border-radius:50%;
     display:flex;
     align-items:center;
     justify-content:center;
     cursor:pointer;
-    transition:0.3s;
+    transition:.3s;
 }
 
 .menu-btn:hover{
     transform:rotate(90deg);
     background:white;
     color:black;
-}
-
-.menu-btn span{
-    font-size:23px;
 }
 
 /* ================= MENU ================= */
@@ -84,8 +80,7 @@ body{
     display:flex;
     align-items:center;
     justify-content:center;
-    transition:0.5s ease;
-    box-shadow:-10px 0 40px rgba(0,0,0,0.6);
+    transition:.5s ease;
 }
 
 .menu.active{
@@ -107,7 +102,7 @@ body{
     font-size:38px;
     font-weight:800;
     letter-spacing:3px;
-    transition:0.3s;
+    transition:.3s;
 }
 
 .menu a:hover{
@@ -118,7 +113,7 @@ body{
 
 .hero{
     min-height:100vh;
-    padding:120px 7% 60px;
+    padding:120px 7% 50px;
     display:flex;
     flex-direction:column;
     justify-content:center;
@@ -135,13 +130,13 @@ body{
 .small-title{
     font-size:14px;
     letter-spacing:6px;
-    opacity:0.6;
+    opacity:.6;
     margin-bottom:20px;
 }
 
 .hero h1{
     font-size:clamp(55px,10vw,130px);
-    line-height:0.9;
+    line-height:.9;
     font-weight:900;
     letter-spacing:-5px;
 }
@@ -155,17 +150,17 @@ body{
     margin:30px auto;
     color:#aaa;
     line-height:1.7;
-    font-size:16px;
 }
 
-/* ================= CENTER CAR IMAGE ================= */
+/* ================= CAR ================= */
 
 .car-section{
     width:100%;
     display:flex;
     justify-content:center;
     align-items:center;
-    margin-top:30px;
+    margin-top:20px;
+    position:relative;
 }
 
 .car-image{
@@ -175,18 +170,156 @@ body{
     height:auto;
     margin:0 auto;
     object-fit:contain;
-    filter:drop-shadow(0 25px 35px rgba(0,0,0,0.8));
-    animation:carFloat 4s ease-in-out infinite;
+    filter:drop-shadow(0 25px 35px rgba(0,0,0,.8));
+    transition:.15s;
 }
 
-@keyframes carFloat{
-    0%,100%{
-        transform:translateY(0);
+/* ACCELERATION ANIMATION */
+
+body.accelerating .car-image{
+    animation:carShake .08s infinite alternate;
+    filter:drop-shadow(0 0 35px rgba(255,255,255,.25));
+}
+
+@keyframes carShake{
+    from{
+        transform:translateX(-2px) scale(1.01);
     }
 
-    50%{
-        transform:translateY(-12px);
+    to{
+        transform:translateX(2px) scale(1.025);
     }
+}
+
+/* SPEED LINES */
+
+.speed-lines{
+    position:absolute;
+    width:100%;
+    height:100%;
+    pointer-events:none;
+    overflow:hidden;
+    opacity:0;
+    transition:.2s;
+}
+
+body.accelerating .speed-lines{
+    opacity:1;
+}
+
+.speed-lines::before,
+.speed-lines::after{
+    content:"";
+    position:absolute;
+    left:50%;
+    width:2px;
+    height:120%;
+    background:rgba(255,255,255,.25);
+    transform:translateX(-50%);
+    animation:speedMove .35s linear infinite;
+}
+
+.speed-lines::after{
+    animation-delay:.17s;
+    opacity:.5;
+}
+
+@keyframes speedMove{
+    from{
+        top:-120%;
+    }
+
+    to{
+        top:120%;
+    }
+}
+
+/* ================= RPM ================= */
+
+.rpm-box{
+    margin-top:10px;
+    width:280px;
+}
+
+.rpm-top{
+    display:flex;
+    justify-content:space-between;
+    font-size:11px;
+    letter-spacing:2px;
+    color:#777;
+    margin-bottom:8px;
+}
+
+.rpm-bar{
+    width:100%;
+    height:7px;
+    background:#191919;
+    border-radius:20px;
+    overflow:hidden;
+}
+
+.rpm-fill{
+    width:8%;
+    height:100%;
+    background:white;
+    border-radius:20px;
+    transition:width .12s ease;
+}
+
+.rpm-number{
+    margin-top:8px;
+    font-size:12px;
+    letter-spacing:3px;
+    color:#888;
+}
+
+/* ================= ACCELERATOR ================= */
+
+.accelerator-area{
+    margin-top:25px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:10px;
+}
+
+.accelerator-label{
+    font-size:10px;
+    letter-spacing:4px;
+    color:#777;
+}
+
+.accelerator{
+    width:125px;
+    height:58px;
+    border:1px solid #444;
+    border-radius:14px;
+    background:linear-gradient(#181818,#080808);
+    box-shadow:
+        inset 0 2px 5px rgba(255,255,255,.08),
+        0 10px 25px rgba(0,0,0,.6);
+    color:white;
+    font-size:12px;
+    font-weight:bold;
+    letter-spacing:3px;
+    cursor:pointer;
+    user-select:none;
+    -webkit-user-select:none;
+    touch-action:none;
+    transition:.1s;
+}
+
+.accelerator:hover{
+    border-color:#888;
+}
+
+.accelerator:active,
+.accelerator.pressed{
+    transform:translateY(7px) scale(.97);
+    box-shadow:
+        inset 0 5px 10px rgba(0,0,0,.8),
+        0 3px 8px rgba(0,0,0,.5);
+    background:#222;
 }
 
 /* ================= BUTTON ================= */
@@ -202,7 +335,7 @@ body{
     font-size:13px;
     font-weight:bold;
     letter-spacing:2px;
-    transition:0.3s;
+    transition:.3s;
 }
 
 .btn:hover{
@@ -211,7 +344,7 @@ body{
     transform:translateY(-3px);
 }
 
-/* ================= ABOUT ================= */
+/* ================= SECTIONS ================= */
 
 .section{
     min-height:80vh;
@@ -224,7 +357,7 @@ body{
 .section-label{
     font-size:12px;
     letter-spacing:5px;
-    opacity:0.5;
+    opacity:.5;
     margin-bottom:20px;
 }
 
@@ -257,7 +390,7 @@ body{
     display:flex;
     flex-direction:column;
     justify-content:flex-end;
-    transition:0.4s;
+    transition:.4s;
 }
 
 .card:hover{
@@ -268,7 +401,7 @@ body{
 
 .card-number{
     font-size:13px;
-    opacity:0.5;
+    opacity:.5;
     margin-bottom:auto;
 }
 
@@ -287,14 +420,6 @@ body{
 .contact{
     text-align:center;
     align-items:center;
-}
-
-.contact h2{
-    max-width:900px;
-}
-
-.contact .btn{
-    margin-top:20px;
 }
 
 /* ================= FOOTER ================= */
@@ -331,8 +456,7 @@ footer{
     }
 
     .car-image{
-        width:92%;
-        max-width:600px;
+        width:94%;
     }
 
     .services{
@@ -370,7 +494,7 @@ footer{
 
 </nav>
 
-<!-- ================= FULL SCREEN MENU ================= -->
+<!-- ================= MENU ================= -->
 
 <div class="menu" id="menu">
 
@@ -405,7 +529,11 @@ footer{
 
     </div>
 
-    <!-- CAR IS CENTERED HERE -->
+    <!-- SPEED EFFECT -->
+
+    <div class="speed-lines"></div>
+
+    <!-- CENTER CAR -->
 
     <div class="car-section">
 
@@ -413,7 +541,44 @@ footer{
             src="car.jpg"
             alt="Luxury Car"
             class="car-image"
+            id="car"
         >
+
+    </div>
+
+    <!-- RPM -->
+
+    <div class="rpm-box">
+
+        <div class="rpm-top">
+            <span>RPM</span>
+            <span>REDLINE</span>
+        </div>
+
+        <div class="rpm-bar">
+            <div class="rpm-fill" id="rpmFill"></div>
+        </div>
+
+        <div class="rpm-number" id="rpmNumber">
+            0800 RPM
+        </div>
+
+    </div>
+
+    <!-- ACCELERATOR -->
+
+    <div class="accelerator-area">
+
+        <div class="accelerator-label">
+            PRESS & HOLD
+        </div>
+
+        <button
+            class="accelerator"
+            id="accelerator"
+        >
+            ACCELERATE
+        </button>
 
     </div>
 
@@ -460,41 +625,29 @@ footer{
     <div class="services">
 
         <div class="card">
-
             <div class="card-number">01</div>
-
             <h3>DESIGN</h3>
-
             <p>
                 Bold visual concepts created to make your brand
                 stand out.
             </p>
-
         </div>
 
         <div class="card">
-
             <div class="card-number">02</div>
-
             <h3>DETAIL</h3>
-
             <p>
                 Every small element is carefully designed for
                 a premium experience.
             </p>
-
         </div>
 
         <div class="card">
-
             <div class="card-number">03</div>
-
             <h3>EXPERIENCE</h3>
-
             <p>
                 Creating digital experiences that people remember.
             </p>
-
         </div>
 
     </div>
@@ -530,9 +683,18 @@ footer{
 
 </footer>
 
-<!-- ================= JAVASCRIPT ================= -->
+<!-- ================= ENGINE SOUND ================= -->
+
+<audio
+    id="engineSound"
+    src="engine.mp3"
+    preload="auto"
+    loop>
+</audio>
 
 <script>
+
+/* ================= MENU ================= */
 
 function toggleMenu(){
 
@@ -541,6 +703,172 @@ function toggleMenu(){
     menu.classList.toggle("active");
 
 }
+
+
+/* ================= ACCELERATOR ================= */
+
+const accelerator = document.getElementById("accelerator");
+const engineSound = document.getElementById("engineSound");
+const rpmFill = document.getElementById("rpmFill");
+const rpmNumber = document.getElementById("rpmNumber");
+
+let accelerating = false;
+let rpm = 800;
+let animationFrame;
+
+
+/* START ACCELERATION */
+
+function startAcceleration(){
+
+    if(accelerating) return;
+
+    accelerating = true;
+
+    accelerator.classList.add("pressed");
+    document.body.classList.add("accelerating");
+
+    /*
+       Browser audio policy normally requires
+       the sound to start from a user interaction.
+    */
+
+    engineSound.currentTime = 0;
+
+    engineSound.play().catch(() => {
+        console.log("Tap the accelerator again to enable sound.");
+    });
+
+    animateRPM();
+}
+
+
+/* STOP ACCELERATION */
+
+function stopAcceleration(){
+
+    if(!accelerating) return;
+
+    accelerating = false;
+
+    accelerator.classList.remove("pressed");
+    document.body.classList.remove("accelerating");
+
+    cancelAnimationFrame(animationFrame);
+
+    /*
+       Smooth engine cooldown
+    */
+
+    const cooldown = setInterval(() => {
+
+        rpm -= 180;
+
+        if(rpm <= 800){
+
+            rpm = 800;
+            clearInterval(cooldown);
+
+            engineSound.pause();
+            engineSound.currentTime = 0;
+        }
+
+        updateRPM();
+
+    },50);
+}
+
+
+/* RPM ANIMATION */
+
+function animateRPM(){
+
+    if(!accelerating) return;
+
+    rpm += 150;
+
+    if(rpm >= 7000){
+        rpm = 7000;
+    }
+
+    updateRPM();
+
+    /*
+       Change playback speed according to RPM.
+       This makes the engine sound feel like
+       it is revving higher.
+    */
+
+    engineSound.playbackRate =
+        0.75 + (rpm / 7000) * 0.65;
+
+    animationFrame =
+        requestAnimationFrame(animateRPM);
+}
+
+
+/* UPDATE RPM DISPLAY */
+
+function updateRPM(){
+
+    const percentage =
+        ((rpm - 800) / (7000 - 800)) * 100;
+
+    rpmFill.style.width =
+        Math.max(8, percentage) + "%";
+
+    rpmNumber.textContent =
+        Math.round(rpm).toString().padStart(4,"0")
+        + " RPM";
+}
+
+
+/* ================= MOUSE ================= */
+
+accelerator.addEventListener(
+    "mousedown",
+    startAcceleration
+);
+
+accelerator.addEventListener(
+    "mouseup",
+    stopAcceleration
+);
+
+accelerator.addEventListener(
+    "mouseleave",
+    stopAcceleration
+);
+
+
+/* ================= TOUCH ================= */
+
+accelerator.addEventListener(
+    "touchstart",
+    function(event){
+
+        event.preventDefault();
+        startAcceleration();
+
+    },
+    {passive:false}
+);
+
+accelerator.addEventListener(
+    "touchend",
+    function(event){
+
+        event.preventDefault();
+        stopAcceleration();
+
+    },
+    {passive:false}
+);
+
+
+/* ================= INITIAL RPM ================= */
+
+updateRPM();
 
 </script>
 
